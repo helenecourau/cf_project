@@ -24,3 +24,12 @@ class ProductFarmerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ProductFarmer
         fields = ['special_name', 'product', 'farmer']
+
+
+class FarmerProductCertificateSerializer(serializers.ModelSerializer):
+    products = serializers.StringRelatedField(many=True)
+    certificates = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = Farmer
+        fields = ['farmer_name', 'products', 'certificates']
