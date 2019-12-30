@@ -5,25 +5,25 @@ class Farmer(models.Model):
 
     farmer_name = models.CharField(
         max_length=255,
-        verbose_name="Raison sociale", 
+        verbose_name="Raison sociale",
         unique=True)
 
     street = models.CharField(
         max_length=255,
-        verbose_name="Rue", 
+        verbose_name="Rue",
         null=True)
 
     cp = models.IntegerField(
-        verbose_name="Code postal", 
+        verbose_name="Code postal",
         null=True)
 
     city = models.CharField(
         max_length=255,
-        verbose_name="Ville", 
+        verbose_name="Ville",
         null=True)
 
     siret = models.BigIntegerField(
-        verbose_name="SIRET", 
+        verbose_name="SIRET",
         null=True)
 
     class Meta:
@@ -33,21 +33,22 @@ class Farmer(models.Model):
 
         return self.farmer_name
 
+
 class Product(models.Model):
 
     product_name = models.CharField(
         max_length=255,
-        verbose_name="Nom du produit", 
+        verbose_name="Nom du produit",
         unique=True)
 
     international_codification = models.CharField(
         max_length=255,
-        verbose_name="Codification internationale", 
+        verbose_name="Codification internationale",
         null=True)
 
     unit = models.CharField(
         max_length=255,
-        verbose_name="Unité", 
+        verbose_name="Unité",
         null=True)
 
     farmer = models.ManyToManyField(
@@ -55,7 +56,6 @@ class Product(models.Model):
         through='ProductFarmer',
         related_name='products',
     )
-
 
     class Meta:
         verbose_name = "Produit"
@@ -66,11 +66,11 @@ class Product(models.Model):
 
 
 class Certificate(models.Model):
-    
+
     biologique = 'bio'
     ogm = 'ogm'
     origine = 'or'
-    
+
     certificate_type_choices = [
         (biologique, 'Biologique'),
         (ogm, 'Sans OGM'),
@@ -79,7 +79,7 @@ class Certificate(models.Model):
 
     certificate_name = models.CharField(
         max_length=255,
-        verbose_name="Nom du certificat", 
+        verbose_name="Nom du certificat",
         unique=True)
 
     certificate_type = models.CharField(
@@ -89,11 +89,10 @@ class Certificate(models.Model):
         verbose_name="type",
     )
 
-    farmer = models.ForeignKey('Farmer', 
-        related_name='certificates', 
-        on_delete=models.CASCADE)
+    farmer = models.ForeignKey('Farmer',
+                               related_name='certificates',
+                               on_delete=models.CASCADE)
 
-    
     class Meta:
         verbose_name = "Certificat"
 
@@ -105,7 +104,7 @@ class Certificate(models.Model):
 class ProductFarmer(models.Model):
     special_name = models.CharField(
         max_length=255,
-        verbose_name="Nom spécifique", 
+        verbose_name="Nom spécifique",
         null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
