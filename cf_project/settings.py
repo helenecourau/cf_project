@@ -39,11 +39,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api_rest',
     'rest_framework',
+    'rest_auth',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
+}
+
+LOGOUT_ON_PASSWORD_CHANGE = False
+OLD_PASSWORD_FIELD_ENABLED = True
+LOGOUT_ON_PASSWORD_CHANGE = False
+
+REST_AUTH_SERIALIZERS = {
+    'PASSWORD_CHANGE_SERIALIZER': 
+        'api_rest.serializers.PasswordChangeSerializer',
 }
 
 MIDDLEWARE = [
@@ -83,9 +93,9 @@ WSGI_APPLICATION = 'cf_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cf_project',
+        'NAME': 'test_embauche',
         'USER': 'postgres',
-        'PASSWORD': 'mdp',
+        'PASSWORD': '14181922',
         'HOST': '',
         'PORT': '5432',
     }
